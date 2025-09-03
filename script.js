@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Itch.io auto claimer
-// @namespace    https://owsky.github.io/
-// @version      0.1
-// @description  Sit back while the games move directly to your library
-// @author       owsky
+// @name         Itch.io auto claimer and collection
+// @namespace    https://github.com/napalmfred/
+// @version      0.2
+// @description  Sit back while the games move directly to your library and collection
+// @author       napalmfred
 // @match        https://*.itch.io/*
 // @grant    GM_getValue
 // @grant    GM_setValue
@@ -33,6 +33,12 @@
   const backLink = document.querySelector(
     "a[href^='https://itch.io/bundle/download/']"
   )
+  // set the collection name
+  const collection = "No ICE in California"
+      
+  // get collection
+  const collection_btn = document.querySelector("button[value='add_to_collection']")
+  )
 
   // check whether the currently opened page is the bundle's page
   const url = new URL(window.location)
@@ -60,8 +66,20 @@
         GM_deleteValue("currPage")
       }
     }
-    // if the back to the bundle link is found jump to the last visited page
-  } else if (backLink) {
+    
+  }
+   // if the add_to_collection button is found open it
+  else if (collection_btn) {
+    console.log("Adding game to collection")
+    collection_btn.click()
+    // Check if it is already in a collection
+    const aic = document.querySelector(".already_in_row")
+    // Check if collection exsists
+    // If collection exsists add it to collection
+    // If collection doesn't exsist make a new collection
+  }
+  // if the back to the bundle link is found jump to the last visited page
+  else if (backLink) {
     console.log("Returning to bundle page")
     const backUrl = new URL(backLink.href)
     window.location.href = backUrl.href + "?page=" + `${currPage}`
